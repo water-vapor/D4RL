@@ -45,8 +45,8 @@ def point_maze(maze_str):
     asset.texture(name="skybox",type="skybox",builtin="gradient",rgb1=".4 .6 .8",rgb2="0 0 0",
                width="800",height="800",mark="random",markrgb="1 1 1")
     asset.material(name="groundplane",texture="groundplane",texrepeat="20 20")
-    asset.material(name="wall",rgba=".7 .5 .3 1")
-    asset.material(name="target",rgba=".6 .3 .3 1")
+    asset.material(name="wall",rgba=".7 .5 .3 0.5")
+    asset.material(name="target",rgba=".6 .3 .3 0.5")
 
     visual = mjcmodel.root.visual()
     visual.headlight(ambient=".4 .4 .4",diffuse=".8 .8 .8",specular="0.1 0.1 0.1")

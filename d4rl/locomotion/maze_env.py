@@ -194,6 +194,22 @@ class MazeEnv(gym.Env):
               conaffinity="1",
               rgba="0.7 0.5 0.3 1.0",
           )
+        elif struct == GOAL:
+          ET.SubElement(
+              worldbody, "geom",
+              name="goal",
+              pos="%f %f %f" % (j * self._maze_size_scaling - torso_x,
+                                i * self._maze_size_scaling - torso_y,
+                                self._maze_height / 2 * self._maze_size_scaling),
+              size="%f %f %f" % (0.5 * 0.5 * self._maze_size_scaling,
+                                  0.5 * 0.5 * self._maze_size_scaling,
+                                  0.5 * self._maze_height / 2 * self._maze_size_scaling),
+              type="sphere",
+              material="",
+              contype="0",
+              conaffinity="0",
+              rgba="1 0 0 0.5",
+          )
 
     torso = tree.find(".//body[@name='torso']")
     geoms = torso.findall(".//geom")
@@ -248,12 +264,12 @@ class MazeEnv(gym.Env):
     # be a goal.
     sample_choices = goal_cells if goal_cells else valid_cells
     cell = sample_choices[np_random.choice(len(sample_choices))]
-    xy = self._rowcol_to_xy(cell, add_random_noise=True)
+    xy = self._rowcol_to_xy(cell, add_random_noise=False)
 
-    random_x = np.random.uniform(low=0, high=0.5) * 0.25 * self._maze_size_scaling
-    random_y = np.random.uniform(low=0, high=0.5) * 0.25 * self._maze_size_scaling
+    # random_x = np.random.uniform(low=0, high=0.5) * 0.25 * self._maze_size_scaling
+    # random_y = np.random.uniform(low=0, high=0.5) * 0.25 * self._maze_size_scaling
 
-    xy = (max(xy[0] + random_x, 0), max(xy[1] + random_y, 0))
+    # xy = (max(xy[0] + random_x, 0), max(xy[1] + random_y, 0))
 
     return xy
   
@@ -263,7 +279,7 @@ class MazeEnv(gym.Env):
     else:
       self.target_goal = goal_input
     
-    print ('Target Goal: ', self.target_goal)
+    # print ('Target Goal: ', self.target_goal)
     ## Make sure that the goal used in self._goal is also reset:
     self._goal = self.target_goal
 

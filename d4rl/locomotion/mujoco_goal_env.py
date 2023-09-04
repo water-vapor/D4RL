@@ -13,7 +13,7 @@ try:
 except ImportError as e:
     raise error.DependencyNotInstalled("{}. (HINT: you need to install mujoco_py, and also perform the setup instructions here: https://github.com/openai/mujoco-py/.)".format(e))
 
-DEFAULT_SIZE = 500
+DEFAULT_SIZE = 1024
 
 def convert_observation_to_space(observation):
     if isinstance(observation, dict):
@@ -105,7 +105,7 @@ class MujocoGoalEnv(gym.Env):
         Optionally implement this method, if you need to tinker with camera position
         and so forth.
         """
-        pass
+        self.viewer.cam.trackbodyid = 2
     
     def reset(self):
         self.sim.reset()
